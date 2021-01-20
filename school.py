@@ -5,14 +5,10 @@ nauczyciele = []
 uczniowie = []
 
 
-def divider():
-    print(46 * "#")
-
-
 def download_data():
     data = []
     while True:
-        data.append(input("Jaka klasa? "))
+        data.append(input())
         if data[-1] == "":
             del data[-1]
             break
@@ -24,6 +20,9 @@ class Wychowawca:
     def __init__(self, name, grade):
         self.name = name
         self.grade = grade
+
+    def __str__(self):
+        return f'{self.name} - {self.grade}'
 
 
 class Nauczyciel:
@@ -42,66 +41,52 @@ class Uczen:
 
 
 def wychowawca():
-    name = input("Jakie imię? ")
+    name = input()
     wychowawca = Wychowawca(name, download_data())
     wychowawcy.append(wychowawca)
-    print(wychowawcy)
-    print("Imię wychowawcy: ", wychowawca.name)
-    print("Klasy wychowawcy: ", wychowawca.grade)
     return wychowawca
 
 
-def argv_wychowawca():
-    for wychowawca in wychowawcy:
-        divider()
-        print("Wychowawca: ", wychowawca.name)
-        print("Klasy które prowadzi: ", wychowawca.grade)
-
-
 def nauczyciel():
-    name = input("Jakie imię? ")
-    subject = input("Jaki przedmiot? ")
+    name = input()
+    subject = input()
     nauczyciel = Nauczyciel(name, subject, download_data())
     nauczyciele.append(nauczyciel)
     return nauczyciel
 
 
-def argv_nauczyciel():
-    for nauczyciel in nauczyciele:
-        divider()
-        print("Naczuczyciel: ", nauczyciel.name)
-        print("Przedmiot: ", nauczyciel.subject)
-        print("Klasy: ", nauczyciel.grade)
-
-
 def uczen():
-    name = input("Jakie imię? ")
-    grade = input("Jaka klasa? ")
+    name = input()
+    grade = input()
     uczen = Uczen(name, grade)
     uczniowie.append(uczen)
     return uczen
 
 
-def argv_uczen():
-    for uczen in uczniowie:
-        divider()
-        print("Uczeń: ", uczen.name)
-        print("Klasa: ", uczen.grade)
-
-
 def argv():
-    if sys.argv[1] == 'wychowawca':
-        argv_wychowawca()
-    if sys.argv[1] == 'uczen':
-        argv_uczen()
-    if sys.argv[1] == 'nauczyciel':
-        argv_nauczyciel()
 
-
-def menu():
-    print(20 * "#" + " MENU " + 20 * "#")
-    print(46 * "#")
-    print("KOMENDY: uczen, nauczyciel, wychowawca, koniec")
+    for wychowawca in wychowawcy:
+        if sys.argv[1] in wychowawca.grade:
+            print(wychowawca.name)
+        if wychowawca.name == sys.argv[1]:
+            for uczen in uczniowie:
+                if uczen.grade in wychowawca.grade:
+                    print(uczen.name)
+    for uczen in uczniowie:
+        if sys.argv[1] == uczen.grade:
+            print(uczen.name)
+        if uczen.name == sys.argv[1]:
+            for nauczyciel in nauczyciele:
+                if uczen.grade in nauczyciel.grade:
+                    print(nauczyciel.subject)
+                    print(nauczyciel.name)
+    for nauczyciel in nauczyciele:
+        if nauczyciel.name == sys.argv[1]:
+            for wychowawca in wychowawcy:
+                for grade in wychowawca.grade:
+                    if grade in nauczyciel.grade:
+                        print(wychowawca.name)
+                        break
 
 
 def main():
@@ -113,8 +98,7 @@ def main():
 
     while True:
 
-        menu()
-        selection = input("Komenda: ")
+        selection = input()
         if "koniec" == selection:
             return
         toDo = actions.get(selection, "Brak takiej komendy!")
@@ -122,6 +106,6 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
     argv()
-    divider()
