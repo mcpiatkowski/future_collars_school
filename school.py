@@ -44,7 +44,6 @@ def wychowawca():
     name = input()
     wychowawca = Wychowawca(name, download_data())
     wychowawcy.append(wychowawca)
-    return wychowawca
 
 
 def nauczyciel():
@@ -52,7 +51,6 @@ def nauczyciel():
     subject = input()
     nauczyciel = Nauczyciel(name, subject, download_data())
     nauczyciele.append(nauczyciel)
-    return nauczyciel
 
 
 def uczen():
@@ -60,7 +58,6 @@ def uczen():
     grade = input()
     uczen = Uczen(name, grade)
     uczniowie.append(uczen)
-    return uczen
 
 
 def argv():
