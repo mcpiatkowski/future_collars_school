@@ -60,8 +60,7 @@ def uczen():
     uczniowie.append(uczen)
 
 
-def argv():
-
+def print_wychowawca_argv():
     for wychowawca in wychowawcy:
         if sys.argv[1] in wychowawca.grade:
             print(wychowawca.name)
@@ -69,6 +68,19 @@ def argv():
             for uczen in uczniowie:
                 if uczen.grade in wychowawca.grade:
                     print(uczen.name)
+
+
+def print_teacher_argv():
+    for nauczyciel in nauczyciele:
+        if nauczyciel.name == sys.argv[1]:
+            for wychowawca in wychowawcy:
+                for grade in wychowawca.grade:
+                    if grade in nauczyciel.grade:
+                        print(wychowawca.name)
+                        break
+
+
+def print_student_argv():
     for uczen in uczniowie:
         if sys.argv[1] == uczen.grade:
             print(uczen.name)
@@ -77,13 +89,12 @@ def argv():
                 if uczen.grade in nauczyciel.grade:
                     print(nauczyciel.subject)
                     print(nauczyciel.name)
-    for nauczyciel in nauczyciele:
-        if nauczyciel.name == sys.argv[1]:
-            for wychowawca in wychowawcy:
-                for grade in wychowawca.grade:
-                    if grade in nauczyciel.grade:
-                        print(wychowawca.name)
-                        break
+
+
+def argv():
+    print_wychowawca_argv()
+    print_teacher_argv()
+    print_student_argv()
 
 
 def main():
@@ -103,6 +114,5 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
     argv()
